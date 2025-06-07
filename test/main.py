@@ -14,7 +14,7 @@ project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # مسیر فایل‌ها و مدل‌ها
 book_path       = os.path.join(project_root, "book.txt")
 questions_path  = os.path.join(project_root, "test", "test.txt")
-output_path     = os.path.join(project_root, "test", "result .txt")
+output_path     = os.path.join(project_root, "test", "result.txt")
 
 mpnet_model_path = os.path.join(project_root, "models", "mpnet_local")
 phi2_model_path  = os.path.join(project_root, "models", "phi-2")
