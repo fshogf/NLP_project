@@ -20,7 +20,6 @@ project/
 │   ├── test.txt                      ← List of conceptual questions
 │   ├── main.py                       ← QA pipeline script (Colab-ready)
 │   ├── result.txt                    ← Generated answers and similarity scores
-│   └── report_google_doc_link.txt    ← Link to project documentation (Google Doc)
 ```
 
 ---
