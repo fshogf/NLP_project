@@ -42,6 +42,7 @@ project/
 - **Format:** Plain UTF-8 text (`book.txt`)
 - **Topics Covered:**  
   Consciousness, intentionality, introspection, the extended mind, representationalism, functionalism, etc.
+
   📥 Download the book (text format):
 https://drive.google.com/file/d/1k4bFE3mKHrrfPrSYaBMX-y5-bYU9R_m2/view
 
