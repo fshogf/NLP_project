@@ -1,60 +1,160 @@
 # NLP_project
-# 🧠 Semantic-QA System for Philosophy of Mind
+
+# 🧠 Philosophy of Mind - Semantic QA System
 
 This project implements a semantic question-answering (QA) system tailored for philosophical questions, particularly in the field of **20th and 21st Century Philosophy of Mind**.
 
-It uses transformer-based models to retrieve semantically relevant content from a source book and generate accurate, self-contained, and academically toned answers to conceptual questions.
+The system uses transformer-based models to retrieve semantically relevant content from a source book and generate accurate, self-contained, and academically toned answers to conceptual questions.
 
 ---
 
-## ✅ Project Description
+## 📁 Folder Structure
 
-The system performs the following key steps:
-
-1. **Reads a philosophical text file** (`book.txt`)
-2. **Splits it into overlapping chunks** of ~250 words
-3. **Computes embeddings** of all chunks using MPNet
-4. **Embeds each question** and finds top 5 semantically similar chunks
-5. **Builds a structured prompt** with context and question
-6. **Generates an answer** using a causal language model (phi-2)
-7. **Scores the answer** based on embedding similarity
-8. **Writes outputs** (answer, score, time) to `result.txt`
+```
+project/
+├── book.txt                          ← Main textbook (Volume 6)
+├── models/
+│   ├── phi-2/                        ← Phi-2 language model (local)
+│   └── mpnet_local/                 ← MPNet sentence embedding model (local)
+├── test/
+│   ├── test.txt                      ← List of conceptual questions
+│   ├── main.py                       ← QA pipeline script (Colab-ready)
+│   ├── result.txt                    ← Generated answers and similarity scores
+│   └── report_google_doc_link.txt    ← Link to project documentation (Google Doc)
+```
 
 ---
 
-## 📚 Source Book
+## 🚀 How It Works
 
-- **Title:** *20th and 21st Century Philosophy of Mind*
-- **Format:** UTF-8 plain text file
-- **Content:** Covers key topics like consciousness, intentionality, the mind-body problem, extended cognition, introspection, etc.
+1. Reads full book text from `book.txt`
+2. Splits it into overlapping chunks (250 words, 40% overlap)
+3. Embeds all chunks using MPNet
+4. Embeds each question and selects top 5 related chunks
+5. Constructs a prompt and generates answers using phi-2
+6. Scores the answers via cosine similarity to the question
+7. Saves result to `result.txt`
 
-📥 **Download the book (text format):**  
+---
+
+## 📚 Book Used
+
+- **Title:** *The History of the Philosophy of Mind – Volume 6*
+- **Format:** Plain UTF-8 text (`book.txt`)
+- **Topics Covered:**  
+  Consciousness, intentionality, introspection, the extended mind, representationalism, functionalism, etc.
+  📥 Download the book (text format):
 https://drive.google.com/file/d/1k4bFE3mKHrrfPrSYaBMX-y5-bYU9R_m2/view
 
 ---
 
-## ❓ Sample Questions It Can Answer Well
+## ❓ Suitable Questions
 
-This system is optimized for **high-level conceptual questions**, such as:
+This system is optimized for **semantic, conceptual, and philosophical questions**, such as:
 
-- *What is the extended mind hypothesis, and under what conditions can external tools be part of cognition?*  
-- *How did behaviorism and functionalism approach the mind-body problem differently?*  
-- *What role does introspection play in modern theories of consciousness?*  
-- *How is intentionality defined and debated in 20th-century thought?*
+- What are the limitations of introspection in modern philosophy of mind?
+- How did the extended mind thesis challenge traditional cognitive boundaries?
+- How does functionalism differ from identity theory in explaining mental states?
+- Why is representational content crucial to theories of perception?
 
-Avoid using purely factual questions (e.g., "Who said X in year Y?") as the system is built for **semantic understanding**, not lookup.
-
----
-
-## 🔍 Models Used
-
-1. **MPNet (local version)**  
-   For semantic similarity and chunk retrieval.  
-   🔗 [https://huggingface.co/sentence-transformers/all-mpnet-base-v2](https://huggingface.co/sentence-transformers/all-mpnet-base-v2)
-
-2. **Phi-2 (local version)**  
-   Lightweight causal language model for answer generation.  
-   🔗 [https://huggingface.co/microsoft/phi-2](https://huggingface.co/microsoft/phi-2)
+It is **not optimized** for simple fact lookup or year-based factual queries.
 
 ---
 
+## 🧠 Models Used
+
+| Model           | Use                           | Source (Local Folder)   |
+|-----------------|--------------------------------|--------------------------|
+| MPNet           | Embedding & semantic search    | `/models/mpnet_local/`   |
+| Phi-2 (Causal)  | Language generation            | `/models/phi-2/`         |
+
+You may also replace them with Hugging Face versions:
+
+```python
+
+from sentence_transformers import SentenceTransformer
+embedder = SentenceTransformer("sentence-transformers/all-mpnet-base-v2")
+
+from transformers import AutoTokenizer, AutoModelForCausalLM
+tokenizer = AutoTokenizer.from_pretrained("microsoft/phi-2")
+model = AutoModelForCausalLM.from_pretrained("microsoft/phi-2")
+
+```
+
+---
+
+## 💻 How to Run in Google Colab
+
+To run this project in Google Colab:
+
+### 🔹 Step 1 – Upload required files
+
+In the **left sidebar → Files tab** of Colab, upload these from your `project/` folder:
+
+```
+📁 /content/
+├── book.txt
+├── models/
+│   ├── phi-2/
+│   └── mpnet_local/
+├── test/
+│   ├── test.txt
+│   ├── main.py
+```
+---
+
+### 🔹 Step 2 – Install dependencies
+
+Run the following in a new code cell:
+
+```python
+!pip install transformers sentence-transformers
+```
+
+---
+
+### 🔹 Step 3 – Adjust paths (if needed)
+
+Make sure inside `main.py` the paths match:
+
+```python
+book_path        = "/content/book.txt"
+questions_path   = "/content/test/test.txt"
+output_path      = "/content/test/result.txt"
+phi2_model_path  = "/content/models/phi-2"
+mpnet_model_path = "/content/models/mpnet_local"
+```
+
+---
+
+### 🔹 Step 4 – Run main script
+
+You can either:
+
+- Run the full contents of `main.py` in cells, or  
+- Use the `%run` command in Colab:
+
+```python
+%run /content/test/main.py
+```
+
+---
+
+### 🟢 Output
+
+A file named `result.txt` will be created in `/content/test/`, containing:
+
+- Each question
+- The generated answer
+- A semantic similarity score (0–100)
+- Time taken to generate
+
+---
+
+## 🔗 External Links
+
+- 📄 [Google Doc Report]()*
+- 📥 [Phi-2 Model (HF)](https://huggingface.co/microsoft/phi-2)
+- 📥 [MPNet Model (HF)](https://huggingface.co/sentence-transformers/all-mpnet-base-v2)
+
+---
