@@ -4,10 +4,6 @@ import torch
 from transformers import AutoTokenizer, AutoModelForCausalLM
 from sentence_transformers import SentenceTransformer, util
 
-# ========== تغییر برای تنظیم درست project_root (راه‌حل ۱) ==========
-# فرض می‌کنیم این اسکریپت در فولدر project/test/ قرار دارد.
-# os.path.dirname(__file__) -> ".../project/test"
-# os.path.dirname(os.path.dirname(__file__)) -> ".../project"
 project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # ================================================================
 
