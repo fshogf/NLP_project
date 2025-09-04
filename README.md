@@ -153,7 +153,7 @@ A file named `result.txt` will be created in `/content/test/`, containing:
 
 ## 🔗 External Links
 
-- 📄 [Google Doc Report]()*
+- 📄 [Google Doc Report](https://docs.google.com/document/d/15XzwioafA0ceoGhZ7TAzjsNcX3daiRl6/edit?usp=drivesdk&ouid=104116406459877450870&rtpof=true&sd=true)
 - 📥 [Phi-2 Model (HF)](https://huggingface.co/microsoft/phi-2)
 - 📥 [MPNet Model (HF)](https://huggingface.co/sentence-transformers/all-mpnet-base-v2)
 
